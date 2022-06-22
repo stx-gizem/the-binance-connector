@@ -1,0 +1,77 @@
+import { ConfigOptions } from './@types/config/options';
+import axios, { Method } from 'axios';
+import { buildQueryString, removeEmptyValue } from './helpers/utils';
+import { reqUserAgent } from './helpers/constants';
+import * as crypto from 'crypto';
+
+export abstract class ApiBase {
+  private baseUrl = `https://api.binance.com`;
+  private configOptions: ConfigOptions;
+
+  protected set url(url: string) {
+    this.baseUrl = url;
+  }
+
+  protected get url() {
+    return this.baseUrl;
+  }
+
+  protected setConfigOptions(config: ConfigOptions) {
+    this.configOptions = config;
+  }
+
+  protected signRequest<R = any>(
+    method: Method,
+    path: string,
+    params = {},
+    config?: ConfigOptions,
+  ) {
+    config = config ? config : this.configOptions;
+    params = removeEmptyValue(params);
+    const timestamp = Date.now();
+    const queryString = buildQueryString({ ...params, timestamp });
+    const signature = crypto
+      .createHmac('sha256', config.apiSecret)
+      .update(queryString)
+      .digest('hex');
+    return axios
+      .create({
+        baseURL: this.baseUrl,
+        headers: {
+          'Content-Type': 'application/json',
+          'X-MBX-APIKEY': config.apiKey,
+          'User-Agent': reqUserAgent,
+        },
+      })
+      .request<any, R>({
+        method,
+        url: `${path}?${queryString}&signature=${signature}`,
+      });
+  }
+
+  protected publicRequest<R = any>(
+    method: Method,
+    path: string,
+    params = {},
+    config?: ConfigOptions,
+  ) {
+    params = removeEmptyValue(params);
+    params = buildQueryString(params);
+    if (params !== '') {
+      path = `${path}?${params}`;
+    }
+    return axios
+      .create({
+        baseURL: this.baseUrl,
+        headers: {
+          'Content-Type': 'application/json',
+          'X-MBX-APIKEY': config.apiKey || '',
+          'User-Agent': reqUserAgent,
+        },
+      })
+      .request<any, R>({
+        method,
+        url: path,
+      });
+  }
+}

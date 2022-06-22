@@ -1,0 +1,39 @@
+import { BinanceApi } from './binance-api';
+import { validateRequiredParameters } from '../../helpers/validation';
+import { ConfigOptions } from '../../@types/config/options';
+import { ConvertTradeHistoryOptions } from '../../@types/convert';
+
+class ConvertApi extends BinanceApi {
+  /**
+   * Get Convert Trade History (USER_DATA)<br>
+   *
+   * GET /sapi/v1/convert/tradeFlow<br>
+   *
+   * {@link https://binance-docs.github.io/apidocs/spot/en/#get-convert-trade-history-user_data}
+   *
+   * @param {number} [startTime]
+   * @param {number} [endTime]
+   * @param {object} [options]
+   * @param config
+   * @param {number} [options.limit] - Default 100, Max 1000
+   * @param {number} [options.recvWindow]
+   *
+   */
+  convertTradeHistory(
+    startTime: number,
+    endTime: number,
+    options: ConvertTradeHistoryOptions = {},
+    config: ConfigOptions = {},
+  ) {
+    validateRequiredParameters({ startTime, endTime });
+
+    return this.signRequest(
+      'GET',
+      '/sapi/v1/convert/tradeFlow',
+      Object.assign(options, { startTime, endTime }),
+      config,
+    );
+  }
+}
+
+export const Convert = new ConvertApi();
