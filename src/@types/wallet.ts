@@ -62,3 +62,8 @@ export type FundingWalletOptions = RecvWindowOption & {
   asset?: string;
   needBtcValuation?: string | 'true' | 'false';
 };
+
+export type GetUserAssetOptions = RecvWindowOption & {
+  asset?: string;
+  needBtcValuation?: boolean;
+};

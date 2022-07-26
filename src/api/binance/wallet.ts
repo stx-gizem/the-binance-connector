@@ -10,6 +10,7 @@ import {
   DepositHistoryOptions,
   DustLogOptions,
   FundingWalletOptions,
+  GetUserAssetOptions,
   TradeFeeOptions,
   UserUniversalTransferHistoryOptions,
   UserUniversalTransferOptions,
@@ -548,6 +549,28 @@ class WalletApi extends BinanceApi {
     config: ConfigOptions = {},
   ) {
     return this.signRequest('POST', '/sapi/v1/asset/dust-btc', options, config);
+  }
+
+  /**
+   * User Asset (USER_DATA)
+   *
+   * POST /sapi/v3/asset/getUserAsset
+   *
+   * {@link https://binance-docs.github.io/apidocs/spot/en/#user-asset-user_data}
+   *
+   * @param {object} [options]
+   * @param config
+   * @param {number} [options.recvWindow] - The value cannot be greater than 60000
+   * @param {string} [options.asset] - If asset is blank, then query all positive assets user have.
+   * @param {boolean} [options.needBtcValuation] - Whether need btc valuation or not.
+   */
+  getUserAsset(options: GetUserAssetOptions = {}, config: ConfigOptions = {}) {
+    return this.signRequest(
+      'GET',
+      '/sapi/v3/asset/getUserAsset',
+      options,
+      config,
+    );
   }
 }
 
