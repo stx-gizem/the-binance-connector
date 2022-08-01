@@ -3,6 +3,7 @@ import axios, { Method } from 'axios';
 import { buildQueryString, removeEmptyValue } from './helpers/utils';
 import { reqUserAgent } from './helpers/constants';
 import * as crypto from 'crypto';
+import { ApiUrl } from "./api-url";
 
 export abstract class ApiBase {
   private baseUrl = `https://api.binance.com`;
@@ -25,18 +26,19 @@ export abstract class ApiBase {
     path: string,
     params = {},
     config?: ConfigOptions,
+    endpoint: ApiUrl = ApiUrl.DEFAULT,
   ) {
     config = config ? config : this.configOptions;
     params = removeEmptyValue(params);
     const timestamp = Date.now();
-    const queryString = buildQueryString({ ...params, timestamp });
+    const queryString = buildQueryString({...params, timestamp});
     const signature = crypto
       .createHmac('sha256', config.apiSecret)
       .update(queryString)
       .digest('hex');
     return axios
       .create({
-        baseURL: this.baseUrl,
+        baseURL: endpoint,
         headers: {
           'Content-Type': 'application/json',
           'X-MBX-APIKEY': config.apiKey,
@@ -54,6 +56,7 @@ export abstract class ApiBase {
     path: string,
     params = {},
     config?: ConfigOptions,
+    endpoint: ApiUrl = ApiUrl.DEFAULT,
   ) {
     params = removeEmptyValue(params);
     params = buildQueryString(params);
@@ -62,7 +65,7 @@ export abstract class ApiBase {
     }
     return axios
       .create({
-        baseURL: this.baseUrl,
+        baseURL: endpoint,
         headers: {
           'Content-Type': 'application/json',
           'X-MBX-APIKEY': config.apiKey || '',
