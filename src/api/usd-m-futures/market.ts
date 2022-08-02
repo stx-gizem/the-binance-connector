@@ -257,4 +257,4 @@ class MarketUsdMApi extends UsdMFuturesApi {
   }
 }
 
-export const MarketUsdM = new MarketUsdMApi();
+export const UsdFuturesMarket = new MarketUsdMApi();

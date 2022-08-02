@@ -259,4 +259,4 @@ class MarketCoinMApi extends CoinMFuturesApi {
   }
 }
 
-export const MarketCoinM = new MarketCoinMApi();
+export const CoinFuturesMarket = new MarketCoinMApi();
