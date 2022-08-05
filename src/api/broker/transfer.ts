@@ -21,7 +21,7 @@ class BrokerTransferApi extends BrokerApi {
    * @param {object} [options]
    * @param config
    * @param {string} [options.fromId]
-   * @param {string} [options.told]
+   * @param {string} [options.toId]
    * @param {string} [options.clientTrandId] - client transfer id, must be unique
    * @param {number} [options.recvWindow]
    */
@@ -53,7 +53,7 @@ class BrokerTransferApi extends BrokerApi {
    * @param {object} [options]
    * @param config
    * @param {string} [options.fromId]
-   * @param {string} [options.told]
+   * @param {string} [options.toId]
    * @param {string} [options.showAllStatus] - true or false, default: false
    * @param {string} [options.clientTrandId] - client transfer id
    * @param {number} [options.recvWindow]
@@ -84,7 +84,7 @@ class BrokerTransferApi extends BrokerApi {
    * @param {object} [options]
    * @param config
    * @param {string} [options.fromId]
-   * @param {string} [options.told]
+   * @param {string} [options.toId]
    * @param {string} [options.clientTrandId]
    * @param {number} [options.recvWindow]
    *

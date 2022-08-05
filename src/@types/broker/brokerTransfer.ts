@@ -2,13 +2,13 @@ import { FilterOptions, RecvWindowOption } from "../core";
 
 export type SpotTransferOptions = RecvWindowOption & {
   fromId?: string;
-  told?: string;
+  toId?: string;
   clientTranId?: string;
 }
 
 export type SpotTransferHistoryOptions = RecvWindowOption & FilterOptions & {
   fromId?: string;
-  told?: string;
+  toId?: string;
   clientTranId?: string;
   showAllStatus?: string | 'true' | 'false',
   page?: number
