@@ -566,7 +566,7 @@ class WalletApi extends BinanceApi {
    */
   getUserAsset(options: GetUserAssetOptions = {}, config: ConfigOptions = {}) {
     return this.signRequest(
-      'GET',
+      'POST',
       '/sapi/v3/asset/getUserAsset',
       options,
       config,
