@@ -56,7 +56,7 @@ export abstract class ApiBase {
         if (err.response) {
           errBody.data = err.response.data || null;
         }
-        throw err;
+        throw errBody;
       });
   }
 
@@ -92,7 +92,7 @@ export abstract class ApiBase {
         if (err.response) {
           errBody.data = err.response.data || null;
         }
-        throw err;
+        throw errBody;
       });
   }
 }
