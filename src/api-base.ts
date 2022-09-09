@@ -48,6 +48,15 @@ export abstract class ApiBase {
       .request<any, R>({
         method,
         url: `${path}?${queryString}&signature=${signature}`,
+      }).catch((err) => {
+        const errBody = {
+          status: err?.response?.status,
+          data: null,
+        };
+        if (err.response) {
+          errBody.data = err.response.data || null;
+        }
+        throw err;
       });
   }
 
@@ -75,6 +84,15 @@ export abstract class ApiBase {
       .request<any, R>({
         method,
         url: path,
+      }).catch((err) => {
+        const errBody = {
+          status: err?.response?.status,
+          data: null,
+        };
+        if (err.response) {
+          errBody.data = err.response.data || null;
+        }
+        throw err;
       });
   }
 }
