@@ -1,9 +1,9 @@
 import { ConfigOptions } from './@types/config/options';
-import axios, { Method } from 'axios';
+import axios, { AxiosResponse, Method } from 'axios';
 import { buildQueryString, removeEmptyValue } from './helpers/utils';
 import { reqUserAgent } from './helpers/constants';
 import * as crypto from 'crypto';
-import { ApiUrl } from "./api-url";
+import { ApiUrl } from './api-url';
 
 export abstract class ApiBase {
   private baseUrl = `https://api.binance.com`;
@@ -21,17 +21,17 @@ export abstract class ApiBase {
     this.configOptions = config;
   }
 
-  protected signRequest<R = any>(
+  protected signRequest(
     method: Method,
     path: string,
     params = {},
     config?: ConfigOptions,
     endpoint: ApiUrl = ApiUrl.DEFAULT,
-  ) {
+  ): Promise<AxiosResponse> {
     config = config ? config : this.configOptions;
     params = removeEmptyValue(params);
     const timestamp = Date.now();
-    const queryString = buildQueryString({...params, timestamp});
+    const queryString = buildQueryString({ ...params, timestamp });
     const signature = crypto
       .createHmac('sha256', config.apiSecret)
       .update(queryString)
@@ -45,7 +45,7 @@ export abstract class ApiBase {
           'User-Agent': reqUserAgent,
         },
       })
-      .request<any, R>({
+      .request({
         method,
         url: `${path}?${queryString}&signature=${signature}`,
       }).catch((err) => {
@@ -66,7 +66,7 @@ export abstract class ApiBase {
     params = {},
     config?: ConfigOptions,
     endpoint: ApiUrl = ApiUrl.DEFAULT,
-  ) {
+  ): Promise<AxiosResponse> {
     params = removeEmptyValue(params);
     params = buildQueryString(params);
     if (params !== '') {
@@ -81,7 +81,7 @@ export abstract class ApiBase {
           'User-Agent': reqUserAgent,
         },
       })
-      .request<any, R>({
+      .request({
         method,
         url: path,
       }).catch((err) => {
