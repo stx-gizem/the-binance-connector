@@ -2,7 +2,7 @@ import { BinanceApi } from './binance-api';
 import { validateRequiredParameters } from '../../helpers/validation';
 import { ConfigOptions } from '../../@types/config/options';
 import {
-  AllOrdersOptions,
+  AllOrdersOptions, CancelAllOpenOrdersOptions,
   CancelOCOOrderOptions,
   CancelOrderOptions,
   GetOCOOrderOptions,
@@ -438,6 +438,16 @@ class TradeApi extends BinanceApi {
    */
   orderCount(options: RecvWindowOption = {}, config: ConfigOptions = {}) {
     return this.signRequest('GET', '/api/v3/rateLimit/order', options, config);
+  }
+
+  /**
+   * Cancel all open orders
+   *
+   * @param options
+   * @param config
+   */
+  cancelAllOpenOrders(options: CancelAllOpenOrdersOptions, config: ConfigOptions = {}) {
+    return this.signRequest('DELETE', '/api/v3/openOrders', options, config);
   }
 }
 
