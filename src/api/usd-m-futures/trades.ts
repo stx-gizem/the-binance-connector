@@ -10,10 +10,10 @@ import {
   GetPositionMarginChangeHistoryOptions,
   GetUserForceOrdersOptions,
   MarginType,
-  ModifyIsolatedPositionMarginOptions,
+  ModifyIsolatedPositionMarginOptions, ModifyPositionMarginType,
   NewOrderOptions,
-  QueryOrderOptions
-} from "../../@types/usd-m-futures/trades";
+  QueryOrderOptions,
+} from '../../@types/usd-m-futures/trades';
 import { SymbolOption } from "../../@types/usd-m-futures/market";
 import { TimeFilterOptions } from "../../@types/core";
 
@@ -141,7 +141,7 @@ class TradesUsdMApi extends UsdMFuturesApi {
     }, config);
   }
 
-  modifyIsolatedPositionMargin(symbol: string, amount: string | number, type: 1 | 2 | number, options: ModifyIsolatedPositionMarginOptions = {}, config: ConfigOptions = {}) {
+  modifyIsolatedPositionMargin(symbol: string, amount: string | number, type: ModifyPositionMarginType, options: ModifyIsolatedPositionMarginOptions = {}, config: ConfigOptions = {}) {
     validateRequiredParameters({
       symbol,
       amount,
