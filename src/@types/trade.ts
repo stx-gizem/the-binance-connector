@@ -66,3 +66,7 @@ export type MyTradesOptions = RecvWindowOption &
     fromId?: number;
     orderId?: number | string;
   };
+
+export type CancelAllOpenOrdersOptions = RecvWindowOption & {
+  symbol: string
+}

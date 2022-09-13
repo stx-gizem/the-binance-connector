@@ -1,4 +1,4 @@
-import { FilterOptions } from "../core";
+import { FilterOptions } from '../core';
 
 export interface NewOrderOptions {
   positionSide?: string | 'BOTH' | 'LONG' | 'SHORT',
@@ -43,13 +43,17 @@ export enum MarginType {
   CROSSED = 'CROSSED'
 }
 
+export enum ModifyPositionMarginType {
+  ADD_POSITION_MARGIN = 1,
+  REDUCE_POSITION_MARGIN = 2
+}
 
 export interface ModifyIsolatedPositionMarginOptions {
   positionSide?: string | 'BOTH' | 'LONG' | 'SHORT'
 }
 
 export interface GetPositionMarginChangeHistoryOptions extends FilterOptions {
-  type?: number | 1 | 2;
+  type?: ModifyPositionMarginType;
 }
 
 export interface AccountTradeListOptions extends FilterOptions {
@@ -59,7 +63,7 @@ export interface AccountTradeListOptions extends FilterOptions {
 
 export interface GetIncomeHistoryOptions extends FilterOptions {
   symbol?: string,
-  incomeType?: string | "TRANSFER" | "WELCOME_BONUS" | "REALIZED_PNL" | "FUNDING_FEE" | "COMMISSION" | "INSURANCE_CLEAR" | "REFERRAL_KICKBACK" | "COMMISSION_REBATE" | "DELIVERED_SETTELMENT" | "COIN_SWAP_DEPOSIT" | "COIN_SWAP_WITHDRAW" | "AUTO_EXCHANGE"
+  incomeType?: string | 'TRANSFER' | 'WELCOME_BONUS' | 'REALIZED_PNL' | 'FUNDING_FEE' | 'COMMISSION' | 'INSURANCE_CLEAR' | 'REFERRAL_KICKBACK' | 'COMMISSION_REBATE' | 'DELIVERED_SETTELMENT' | 'COIN_SWAP_DEPOSIT' | 'COIN_SWAP_WITHDRAW' | 'AUTO_EXCHANGE'
 }
 
 export interface GetUserForceOrdersOptions extends FilterOptions {
