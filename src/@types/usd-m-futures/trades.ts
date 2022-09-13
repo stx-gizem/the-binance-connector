@@ -2,7 +2,7 @@ import { FilterOptions } from '../core';
 
 export interface NewOrderOptions {
   positionSide?: string | 'BOTH' | 'LONG' | 'SHORT',
-  timeInForce?: string,
+  timeInForce?: string | 'GTC' | 'IOC' | 'FOK',
   quantity?: string | number,
   reduceOnly?: 'true' | 'false' | string,
   price?: string | number,
