@@ -11,7 +11,7 @@ export interface NewOrderOptions {
   closePosition?: string | 'true' | 'false',
   activationPrice?: string | number,
   callbackRate?: string | number,
-  workingType?: string | 'ARK_PRICE' | 'CONTRACT_PRICE',
+  workingType?: string | 'MARK_PRICE' | 'CONTRACT_PRICE',
   priceProtect?: string | 'TRUE' | 'FALSE',
   newOrderRespType?: string | 'ACK' | 'RESULT',
 }
