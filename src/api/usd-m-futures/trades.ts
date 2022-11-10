@@ -152,7 +152,7 @@ class TradesUsdMApi extends UsdMFuturesApi {
       amount,
       type,
       ...options
-    });
+    }, config);
   }
 
   getPositionMarginChangeHistory(symbol: string, options: GetPositionMarginChangeHistoryOptions = {}, config: ConfigOptions = {}) {
