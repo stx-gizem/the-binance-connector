@@ -49,14 +49,11 @@ export abstract class ApiBase {
         method,
         url: `${path}?${queryString}&signature=${signature}`,
       }).catch((err) => {
-        const errBody = {
-          status: err?.response?.status,
-          data: null,
-        };
+        let errorMessage = JSON.stringify(err?.response);
         if (err.response) {
-          errBody.data = err.response.data || null;
+          errorMessage = `Code #${err?.response?.status || '0'} - Message: ${err?.response?.data?.msg || 'network error'}`;
         }
-        throw errBody;
+        throw new Error(errorMessage);
       });
   }
 
@@ -85,14 +82,11 @@ export abstract class ApiBase {
         method,
         url: path,
       }).catch((err) => {
-        const errBody = {
-          status: err?.response?.status,
-          data: null,
-        };
+        let errorMessage = JSON.stringify(err?.response);
         if (err.response) {
-          errBody.data = err.response.data || null;
+          errorMessage = `Code #${err?.response?.status || '0'} - Message: ${err?.response?.data?.msg || 'network error'}`;
         }
-        throw errBody;
+        throw new Error(errorMessage);
       });
   }
 }
